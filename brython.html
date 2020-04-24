@@ -8,6 +8,15 @@
 
     <script src="brython_stdlib.js"></script>
 
+    <style>
+        .box {
+          background: black;
+          width: 2em;
+          height: 2em;
+          margin: 20px;
+      }
+    </style>
+
     <title>Brython Playground</title>
 </head>
 <body onload="brython()">
@@ -28,6 +37,11 @@
     <input type="file" id="file-upload">
     <br>
     <textarea id="file-text" cols="30" rows="10"></textarea>
+
+    <div>
+        <button id="rotate-btn">rotate box</button>
+        <div id="rotate-box" class="box"></div>
+    </div>
 
     <!--alert and DOM insert-->
 
@@ -103,6 +117,23 @@
             reader.bind("load", onload)
 
         document["file-upload"].bind("input", file_read)
+    </script>
+
+    <!--CSS style rotate box-->
+
+    <script type="text/python" id="script5">
+        from browser import document, html 
+
+        box = document["rotate-box"]
+        angle = 10
+
+        def change(e):
+            global angle 
+            box.style.transform = f"rotate({angle}deg)"
+            angle += 10
+
+        document["rotate-btn"].bind("click", change)
+    
     </script>
 </body>
 </html>
