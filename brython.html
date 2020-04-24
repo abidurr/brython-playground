@@ -3,17 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython.js" integrity="sha256-rA89wPrTJJQFWJaZveKW8jpdmC3t5F9rRkPyBjz8G04=" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/brython/3.8.8/brython_stdlib.js" integrity="sha256-Gnrw9tIjrsXcZSCh/wos5Jrpn0bNVNFJuNJI9d71TDs=" crossorigin="anonymous"></script>
 
-    <title>Brython</title>
+    <script src="brython.js"></script>
 
+    <script src="brython_stdlib.js"></script>
+
+    <title>Brython Playground</title>
 </head>
-<body>
-        <h1>Brython Playground</h1>
+<body onload="brython()">
+    <h1>Brython Playground</h1>
+
+    <h2 id="hello"></h2>
     
+    <button id="alert-btn">alert and insert</button>
+    
+    <script type="text/python" id="script0">
+        from browser import document, console, alert 
+        
+        def show(e):
+            console.log(e) # logs all event stuff
+            alert("Hello world!")
+            document["hello"] <= "Hello world!"
+
+        document["alert-btn"].bind("click", show)
+    </script>
 </body>
 </html>
-
-
