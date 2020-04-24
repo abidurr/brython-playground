@@ -43,6 +43,11 @@
         <div id="rotate-box" class="box"></div>
     </div>
 
+    <h2>saved item: <span id="item"></span></h2>
+    <input type="text" id="item-input" placeholder="add to local storage">
+    <button id="add-btn">add</button>
+    <button id="remove-btn">remove</button>
+
     <!--alert and DOM insert-->
 
     <script type="text/python" id="script0">
@@ -135,5 +140,29 @@
         document["rotate-btn"].bind("click", change)
     
     </script>
+
+    <!-- local storage p.s. there's also session storage-->
+
+    <script type="text/python" id="script6">
+        from browser import document, html, window, console 
+
+        storage = window.localStorage 
+
+        if storage.getItem("item"):
+            document["item"] <= storage.getItem("item")
+
+        def add_item(e):
+            item = document["item-input"].value
+            storage.setItem("item", item)
+            document["item"].textContent = item
+        
+        def remove_item(e):
+            storage.removeItem("item")
+            document["item"].textContent = ""
+        
+        document["add-btn"].bind("click", add_item)
+        document["remove-btn"].bind("click", remove_item)
+    </script>
+
 </body>
 </html>
