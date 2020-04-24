@@ -25,6 +25,10 @@
     <button id="joke-btn">get joke</button>
     <div id="joke">click the get joke button!</div>
 
+    <input type="file" id="file-upload">
+    <br>
+    <textarea id="file-text" cols="30" rows="10"></textarea>
+
     <!--alert and DOM insert-->
 
     <script type="text/python" id="script0">
@@ -62,7 +66,7 @@
     <!--AJAX-->
 
     <script type="text/python" id="script3">
-        from browser import document, ajax, console
+        from browser import document, ajax
         
         url = "https://api.chucknorris.io/jokes/random"
 
@@ -81,5 +85,24 @@
         document["joke-btn"].bind("click", get_joke)
     </script>
 
+    <!--file upload and view-->
+
+    <script type="text/python" id="script4">
+        from browser import document, window
+
+        def file_read(e):
+            def onload(e):
+                document["file-text"].value = e.target.result
+            
+            # uploaded file will be the first file index 0
+            file = document["file-upload"].files[0]
+
+            # file reader instance
+            reader = window.FileReader.new()
+            reader.readAsText(file)
+            reader.bind("load", onload)
+
+        document["file-upload"].bind("input", file_read)
+    </script>
 </body>
 </html>
