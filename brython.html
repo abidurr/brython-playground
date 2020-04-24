@@ -21,7 +21,10 @@
     <span id="output"></span>
 
     <h2 id="greet">Hello {name}</h2>
-    
+
+    <button id="joke-btn">get joke</button>
+    <div id="joke">click the get joke button!</div>
+
     <!--alert and DOM insert-->
 
     <script type="text/python" id="script0">
@@ -54,5 +57,29 @@
 
         Template(document["greet"]).render(name="Abidur")
     </script>
+
+
+    <!--AJAX-->
+
+    <script type="text/python" id="script3">
+        from browser import document, ajax, console
+        
+        url = "https://api.chucknorris.io/jokes/random"
+
+        def on_complete(req):
+            import json
+            data = json.loads(req.responseText)
+            document["joke"].text = data["value"]
+
+        def get_joke(e):
+            req = ajax.ajax()
+            req.open("GET", url, True)
+            req.bind("complete", on_complete)
+            document["joke"].text = "Loading..."
+            req.send()
+
+        document["joke-btn"].bind("click", get_joke)
+    </script>
+
 </body>
 </html>
